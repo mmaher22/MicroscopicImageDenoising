@@ -31,7 +31,6 @@ def main():
         output_height = label.shape[2]
         
         print('------------ FINISHED READING DATA -----------')
-        batch_size = 128
 
 		# generator networks
         X = tf.placeholder(dtype=tf.float32, shape=[batch_size, input_width, input_height, 1])
@@ -57,12 +56,12 @@ def main():
             gradients = tf.gradients(discriminator_model(interpolates), [interpolates])[0]
         
         # generator loss
-        gen_cost = tf.reduce_mean(disc_fake)    
+        gen_cost = - tf.reduce_mean(disc_fake)    
         # discriminator loss
         w_distance = tf.reduce_mean(disc_fake) - tf.reduce_mean(disc_real)  
         slopes = tf.sqrt(tf.reduce_sum(tf.square(gradients), axis=1))
         gradient_penalty = tf.reduce_mean((slopes-1.)**2)
-        disc_cost = - w_distance + lambd * gradient_penalty   # add gradient constraint to discriminator loss
+        disc_cost = w_distance + lambd * gradient_penalty   # add gradient constraint to discriminator loss
         
         gen_params = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='cnn_model')
         disc_params = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='discriminator_model')
