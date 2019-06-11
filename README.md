@@ -42,7 +42,7 @@ To model the noise addition to input images, poisson noise is used and the funct
 - Python Tensorflow for CNN-MSE/CNN-VGG/WGAN-MSE/WGAN/VGG Architectures
 - Python PyTorch for ResUNet Architecture
 
-<br>
+<hr>
 
 ### References:
 These references were followed to implement similar architectures
